@@ -1,0 +1,233 @@
+import java.util.Scanner;
+
+
+public class Program1
+{
+	public char[][] v = new char[15][15];
+	public char[][] r = new char[15][15];
+	public static int x;
+	public static int y;
+	public char lastmove;
+	
+	
+	
+    public static void main(String[ ] args)  
+    {
+        Program1 p = new Program1();
+        p.start();
+        p.backup();
+        while(1==1)
+        {
+        p.backk();
+        p.afisare();
+        Scanner sc = new Scanner(System.in);
+        x = sc.nextInt();
+        y = sc.nextInt();
+        if(p.calc()==1);
+        {
+        	p.pion();
+        } if( p.calc()==2 )
+        {
+        	p.tura();
+        }
+      
+        //cin>>t;
+        p.afisare();
+        p.mutare();
+        }
+    }
+    
+    
+    public void start()
+	{
+		for(int i=1;i<=8;i++)
+	    {
+	        for(int j=1;j<=8;j++)
+	        {
+	            v[i][j]='0';
+	        }
+	    }
+	    for(int i=1;i<=8;i++)
+	    {
+	        v[2][i]='a';
+	        v[1][i]='a';
+	        v[7][i]='p';
+	    }
+	    v[8][1]='t';
+	    v[8][8]='t';
+	}
+    
+    
+    public void backup()
+    {
+        for(int i=0;i<11;i++)
+        {
+            for(int j=0;j<11;j++)
+            {
+                r[i][j]=v[i][j];
+            }
+        }
+    }
+    
+    
+    
+    public int calc()
+    {
+    	int ans=0;
+        if(v[x][y]=='p')
+        {
+            lastmove='p';
+            ans=1;
+        }
+        if(v[x][y]=='t')
+        {
+            //tura();
+            lastmove='t';
+            ans=2;
+        }
+        return ans;
+    }
+    
+    
+    
+    public void tura()
+    {
+        for(int i=x+1;i<9;i++)
+        {
+            if(v[i][y]=='0')
+                v[i][y]='=';
+            else
+            {
+                if(v[i][y]=='a')
+                    v[i][y]='9';
+                break;
+            }
+        }
+
+        for(int i=x-1;i>0;i--)
+        {
+            if(v[i][y]=='0')
+                v[i][y]='=';
+            else
+            {
+                if(v[i][y]=='a')
+                    v[i][y]='9';
+                break;
+            }
+        }
+
+        for(int i=y+1;i<9;i++)
+        {
+            if(v[x][i]=='0')
+                v[x][i]='=';
+            else
+            {
+                if(v[x][i]=='a')
+                    v[x][i]='9';
+                break;
+            }
+        }
+
+        for(int i=y-1;i>0;i--)
+        {
+            if(v[x][i]=='0')
+                v[x][i]='=';
+            else
+            {
+                if(v[x][i]=='a')
+                    v[x][i]='9';
+                break;
+            }
+        }
+    }
+
+    
+    
+    
+    
+    public void mutare()
+    {
+	    Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        if(v[a][b]=='=')
+        {
+            r[a][b]=lastmove;
+            r[x][y]='0';
+        }
+        else if(v[a][b]=='9')
+        {
+            r[a][b]=lastmove;
+            r[x][y]='0';
+            System.out.println("ai luat o piesa");
+        } else
+        mutare();
+
+    }
+    
+    
+    
+    public void afisare()
+    {
+    	System.out.flush();  
+        for(int i=1;i<=8;i++)
+        {
+            for(int j=1;j<=8;j++)
+            {
+            	System.out.print(v[i][j]);
+            	System.out.print(" ");
+            }
+            System.out.println();
+        }
+    }
+    
+    
+    
+    
+    
+    
+    public void pion()
+    {
+        if(v[x][y]!='p')
+        {
+            return;
+        }
+        if(x==7 && v[5][y]=='0')
+        {
+            v[5][y]='=';
+        }
+        if(v[x-1][y]=='0')
+        {
+            v[x-1][y]='=';
+        }
+        if(v[x-1][y+1]!='0')
+        {
+            v[x-1][y+1]='9';
+        }
+        if(v[x-1][y-1]!='0')
+        {
+            v[x-1][y-1]='9';
+        }
+    }
+    
+    
+    
+    
+    
+    public void backk()
+    {
+        for(int i=0;i<11;i++)
+        {
+            for(int j=0;j<11;j++)
+            {
+                v[i][j]=r[i][j];
+            }
+        }
+    }
+    
+}
+
+/*
+ * Scanner sc = new Scanner(System.in);
+        int x = sc.nextInt();
+ */
